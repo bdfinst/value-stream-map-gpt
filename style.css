@@ -1,0 +1,24 @@
+#valueStreamMap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stage {
+    /* Basic Styling */
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Style for input fields and result display */
+input {
+    margin: 5px 0;
+    width: 80%;
+}
+
+#flowEfficiencyResult {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
