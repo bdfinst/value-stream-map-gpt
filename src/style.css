@@ -1,0 +1,35 @@
+.step {
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 100px;
+    text-align: center;
+}
+
+.step-title {
+    background-color: white;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.step-data {
+    background-color: white;
+    font-size: .8em;
+    text-align: right;
+    width: 5em;
+}
+
+/* Add styles for other input fields here if necessary */
+
+.value-stream-map-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.add-step-button {
+    align-self: flex-start;
+}

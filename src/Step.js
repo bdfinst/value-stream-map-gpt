@@ -1,51 +1,89 @@
+import './style.css'
+
+import PropTypes from 'prop-types'
 import React from 'react'
 
+function StepInput({ className, type, value, onChange, placeholder }) {
+  return (
+    <input
+      className={className}
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
+  )
+}
+
 function Step({ stepNumber, stepData, updateStep }) {
-  const handleInputChange = (field, value) => {
+  const handleChange = (field, value) => {
     updateStep(stepNumber, field, value)
   }
 
+  const fields = [
+    {
+      field: 'title',
+      type: 'text',
+      placeholder: '',
+      className: 'step-title',
+      value: stepData.title || `Step ${stepNumber + 1}`,
+    },
+    {
+      field: 'processTime',
+      type: 'number',
+      placeholder: 'Process Time',
+      className: 'step-data',
+      value: stepData.processTime,
+    },
+    {
+      field: 'waitTime',
+      type: 'number',
+      placeholder: 'Wait Time',
+      className: 'step-data',
+      value: stepData.waitTime,
+    },
+    {
+      field: 'pca',
+      type: 'number',
+      placeholder: '% Complete & Accurate',
+      className: 'step-data',
+      value: stepData.pca,
+    },
+  ]
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '10px',
-        border: '1px solid black',
-        padding: '10px',
-      }}
-    >
-      <input
-        type="text"
-        value={stepData.title || `Step ${stepNumber + 1}`}
-        onChange={e => handleInputChange('title', e.target.value)}
-        placeholder={`Step ${stepNumber + 1}`}
-      />
-      <input
-        type="number"
-        value={stepData.processTime}
-        onChange={e =>
-          handleInputChange('processTime', parseFloat(e.target.value))
-        }
-        placeholder="Process Time"
-      />
-      <input
-        type="number"
-        value={stepData.waitTime}
-        onChange={e =>
-          handleInputChange('waitTime', parseFloat(e.target.value))
-        }
-        placeholder="Wait Time"
-      />
-      <input
-        type="number"
-        value={stepData.pca}
-        onChange={e => handleInputChange('pca', parseFloat(e.target.value))}
-        placeholder="% Complete & Accurate"
-      />
+    <div className="step">
+      {fields.map(({ field, type, placeholder, className, value }) => (
+        <StepInput
+          key={field}
+          className={className}
+          type={type}
+          value={value}
+          onChange={e => handleChange(field, parseFloat(e.target.value))}
+          placeholder={placeholder}
+        />
+      ))}
     </div>
   )
+}
+
+StepInput.propTypes = {
+  className: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+}
+
+Step.propTypes = {
+  stepNumber: PropTypes.number.isRequired,
+  stepData: PropTypes.shape({
+    title: PropTypes.string,
+    processTime: PropTypes.number,
+    waitTime: PropTypes.number,
+    pca: PropTypes.number,
+  }).isRequired,
+  updateStep: PropTypes.func.isRequired,
 }
 
 export default Step

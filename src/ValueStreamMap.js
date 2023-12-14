@@ -1,3 +1,5 @@
+import './style.css'
+
 import React, { useEffect, useState } from 'react'
 
 import Step from './Step'
@@ -12,6 +14,18 @@ function ValueStreamMap() {
       addStep()
     }
   }, [steps])
+
+  const onDragEnd = result => {
+    if (!result.destination) {
+      return
+    }
+
+    const items = Array.from(steps)
+    const [reorderedItem] = items.splice(result.source.index, 1)
+    items.splice(result.destination.index, 0, reorderedItem)
+
+    setSteps(items)
+  }
 
   const addStep = () => {
     setSteps([...steps, { processTime: 0, waitTime: 0, pca: 0, title: '' }])
@@ -37,14 +51,14 @@ function ValueStreamMap() {
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-        }}
-      >
+      <button className="add-step-button" onClick={addStep}>
+        Create Step
+      </button>
+      <div>
+        Flow Efficiency:{' '}
+        {steps.length ? calculateFlowEfficiency().toFixed(2) : 'N/A'}%
+      </div>
+      <div className="value-stream-map-container">
         {steps.map((step, index) => (
           <Step
             key={index}
@@ -53,11 +67,6 @@ function ValueStreamMap() {
             updateStep={updateStep}
           />
         ))}
-      </div>
-      <button onClick={addStep}>Create Step</button>
-      <div>
-        Flow Efficiency:{' '}
-        {steps.length ? calculateFlowEfficiency().toFixed(2) : 'N/A'}%
       </div>
     </div>
   )
