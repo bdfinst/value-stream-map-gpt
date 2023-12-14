@@ -24,4 +24,10 @@ Given there is at least one step
 When I add a step
 Then the next step will be displayed to the right of the previous step.
 
+Scenario: Styling the components
+When a step is created
+Then the step will have a light blue Background
+And the information fields will have a white Background
+And the step corners will be radiused by 20%
+
 
