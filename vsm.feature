@@ -30,4 +30,8 @@ Then the step will have a light blue Background
 And the information fields will have a white Background
 And the step corners will be radiused by 20%
 
-
+Scenario: Reorder steps
+Given there is more than one step
+When I drag step 2 to the left of 1 
+Then step 2 will become step 1 and step 1 will become step 2
+But the inputs for each step will not change.

@@ -16,8 +16,9 @@ function StepInput({ className, type, value, onChange, placeholder }) {
 }
 
 function Step({ stepNumber, stepData, updateStep }) {
-  const handleChange = (field, value) => {
-    updateStep(stepNumber, field, value)
+  const handleChange = (field, e) => {
+    // Call updateStep with the step number, field name, and new value
+    updateStep(stepNumber, field, e.target.value)
   }
 
   const fields = [
